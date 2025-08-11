@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LewSCO.Tech — PC Builds & Repairs</title>
+<meta name="description" content="LewSCO.Tech — Desktop PC builds, repairs, upgrades, and consultations in North Little Rock." />
+<style>
+  :root{
+    --brand:#2D67F5; --bg:#0D1117; --panel:#111827; --text:#E5E7EB; --muted:#9CA3AF;
+    --line:#222; --alt:#1F2937;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif}
+  a{color:var(--brand);text-decoration:none}
+  header{position:sticky;top:0;z-index:10;background:rgba(13,17,23,.8);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .wrap{max-width:980px;margin:0 auto;padding:16px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:36px;height:36px;border-radius:8px;background:var(--brand);display:grid;place-items:center;font-weight:800}
+  nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+  nav button{background:var(--alt);color:var(--text);border:1px solid #2A3343;padding:8px 12px;border-radius:10px;cursor:pointer}
+  nav button.active{background:var(--brand);border-color:var(--brand)}
+  main{padding:24px 0}
+  .hero{background:linear-gradient(135deg,rgba(45,103,245,.18),rgba(16,185,129,.12));border:1px solid var(--line);border-radius:16px;padding:22px}
+  .btn{display:inline-block;background:var(--brand);color:#fff;border:none;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .btn.alt{background:var(--alt);border:1px solid #2A3343}
+  .section{margin-top:22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .price{font-weight:800}
+  .muted{color:var(--muted)}
+  .view{margin-top:10px}
+  form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  input,select,textarea{width:100%;background:#0B1220;color:var(--text);border:1px solid #223;border-radius:10px;padding:10px}
+  label{display:block;font-size:14px;color:#cbd5e1;margin:8px 0 6px}
+  .total{font-size:22px;font-weight:900}
+  footer{border-top:1px solid var(--line);margin-top:28px;padding-top:14px;color:var(--muted);font-size:14px}
+  #requests .card{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  #requests .actions{display:flex;gap:8px}
+  @media (max-width:680px){ form .row{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo">L</div>
+        <div>
+          <strong>LewSCO.Tech</strong><br>
+          <span class="muted">Desktop PC Builds • Repairs • North Little Rock</span>
+        </div>
+      </div>
+      <nav aria-label="Primary">
+        <button data-view="home" class="active" aria-pressed="true">Home</button>
+        <button data-view="services">Services</button>
+        <button data-view="book">Book</button>
+        <button data-view="requests">Requests</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Home -->
+    <section id="view-home" class="view">
+      <div class="hero">
+        <h1>Your Neighborhood Tech Pro</h1>
+        <p>Custom PC builds, desktop repairs & upgrades, and 1-on-1 consultations. Fast, friendly, and local.</p>
+        <div class="section">
+          <button class="btn" data-view="book">Book now</button>
+          <button class="btn alt" data-view="services">See services</button>
+        </div>
+        <div class="section">
+          <span class="muted">Tip: You can save requests locally and email the quote in one tap.</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Highlights</h2>
+        <div class="grid">
+          <div class="card"><h3>Flat-rate Builds</h3><p class="muted">Basic $100 • Intermediate $130 • Advanced $160</p></div>
+          <div class="card"><h3>Repairs & Upgrades</h3><p class="muted">$40 pre-diagnostic (credited if you proceed)</p></div>
+          <div class="card"><h3>Consultations</h3><p class="muted">$35 phone/video — parts list & guidance</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="view-services" class="view" hidden>
+      <h2>Services</h2>
+      <div class="grid" id="services-grid"><!-- injected by JS --></div>
+    </section>
+
+    <!-- Book -->
+    <section id="view-book" class="view" hidden>
+      <h2>Book a Service</h2>
+      <form id="booking-form">
+        <div class="row">
+          <div><label for="name">Full name</label><input id="name" name="name" required placeholder="John Smith" /></div>
+          <div><label for="phone">Phone</label><input id="phone" name="phone" required placeholder="(870) 555-1234" /></div>
+        </div>
+        <div class="row">
+          <div><label for="email">Email</label><input type="email" id="email" name="email" required placeholder="you@example.com" /></div>
+          <div><label for="service">Service</label><select id="service" name="service" required></select></div>
+        </div>
+        <div class="row">
+          <div><label for="date">Preferred date</label><input type="date" id="date" name="date" required /></div>
+          <div><label for="time">Preferred time</label><input type="time" id="time" name="time" required /></div>
+        </div>
+        <div class="row">
+          <div><label for="address">Address (for home visits)</label><input id="address" name="address" placeholder="Street, City" /></div>
+          <div><label for="homeVisit">Home visit?</label>
+            <select id="homeVisit" name="homeVisit">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes (+$25)</option>
+            </select>
+          </div>
+        </div>
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" rows="4" placeholder="PC symptoms, parts on hand, goals…"></textarea>
+
+        <div class="section">
+          <div class="total">Estimated Total: <span id="estimate">$0</span></div>
+          <div class="muted">Estimate based on selections. Final price confirmed after diagnostics.</div>
+        </div>
+
+        <div class="section">
+          <label><input type="checkbox" id="tos" required /> I agree to the pre-diagnostic policy ($40 for repairs, credited if I proceed) and terms.</label>
+        </div>
+
+        <div class="section" style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn" type="submit">Submit request</button>
+          <button class="btn alt" id="email-btn" type="button">Email me this quote</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Requests -->
+    <section id="view-requests" class="view" hidden>
+      <h2>Saved Requests (local)</h2>
+      <p class="muted">Only stored on this device (browser localStorage). You can email or copy a quote.</p>
+      <div id="requests"></div>
+    </section>
+
+    <footer class="wrap">
+      <p>&copy; <span id="year"></span> LewSCO.Tech — North Little Rock • Email: <a href="mailto:LewSCO.Tech@gmail.com">LewSCO.Tech@gmail.com</a> • Phone: <a href="tel:+18703950192">(870) 395-0192</a></p>
+    </footer>
+  </main>
+
+<script>
+(() => {
+  const SERVICES = [
+    { id:'basic-build', name:'Basic Build', price:100, details:[
+      'Assemble from your parts','Cable management','BIOS setup & Windows install','Driver updates'
+    ]},
+    { id:'intermediate-build', name:'Intermediate Build', price:130, details:[
+      'Everything in Basic','RGB/fan controller setup','Wi-Fi/Bluetooth or PCIe add-ons','Dual storage config, light OC (if supported)'
+    ]},
+    { id:'advanced-build', name:'Advanced Build', price:160, details:[
+      'Everything in Intermediate','AIO liquid cooler install','High-end GPU/PSU setup','Advanced BIOS & stress testing'
+    ]},
+    { id:'consultation', name:'PC Build Consultation (Phone/Video)', price:35, details:[
+      '45-minute call','Custom parts list for your budget','Fee credited if you book a build'
+    ]},
+    { id:'repair-upgrade', name:'Repair / Upgrade (Desktop only)', price:0, details:[
+      '$40 pre-diagnostic (credited if you proceed)','Hardware swaps, OS/driver reinstalls, cleanups','Typical turnaround: 1–3 business days'
+    ]}
+  ];
+
+  const $=s=>document.querySelector(s);
+  const $$=s=>document.querySelectorAll(s);
+
+  function renderServices(){
+    const grid=$("#services-grid");
+    if(!grid) return;
+    grid.innerHTML = SERVICES.map(s=>`
+      <div class="card">
+        <h3>${s.name}</h3>
+        <div class="price">${s.price ? `$${s.price} flat` : 'Varies'}</div>
+        <ul>${s.details.map(d=>`<li><small>${d}</small></li>`).join('')}</ul>
+        <div class="section">
+          <button class="btn" type="button" onclick="gotoBook('${s.id}')">Book ${s.price ? '' : 'Repair'}</button>
+        </div>
+      </div>
+    `).join('');
+    const sel=$("#service");
+    if(sel) sel.innerHTML = SERVICES.map(s=>`<option value="${s.id}">${s.name}</option>`).join('');
+  }
+
+  function goto(view){
+    $$(".view").forEach(v=>v.hidden=true);
+    const show=$(`#view-${view}`);
+    if(show) show.hidden=false;
+    $$("nav button").forEach(b=>{
+      const active=b.dataset.view===view;
+      b.classList.toggle('active',active);
+      b.setAttribute('aria-pressed',active?'true':'false');
+    });
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // Expose for inline onclick
+  window.gotoBook = function(serviceId){
+    goto('book');
+    const sel=$("#service");
+    if(sel) sel.value = serviceId;
+    updateEstimate();
+  };
+
+  function servicePrice(id){
+    const s = SERVICES.find(x=>x.id===id);
+    if(!s) return 0;
+    return s.id==='repair-upgrade' ? 40 : s.price;
+  }
+
+  function updateEstimate(){
+    const sel=$("#service"), home=$("#homeVisit"), out=$("#estimate");
+    if(!sel||!home||!out) return;
+    let total = servicePrice(sel.value);
+    if(home.value==='yes') total += 25;
+    out.textContent = `$${total}`;
+  }
+
+  function saveRequest(data){
+    const key='lewsco_requests';
+    let list=[];
+    try{ list = JSON.parse(localStorage.getItem(key)||'[]') }catch(_){}
+    list.unshift(data);
+    localStorage.setItem(key, JSON.stringify(list));
+  }
+
+  function renderRequests(){
+    const key='lewsco_requests';
+    let list=[];
+    try{ list = JSON.parse(localStorage.getItem(key)||'[]') }catch(_){}
+    const wrap=$("#requests");
+    if(!wrap) return;
+    if(!list.length){ wrap.innerHTML='<p class="muted">No saved requests yet.</p>'; return; }
+    wrap.innerHTML = list.map((r,i)=>`
+      <div class="card">
+        <div>
+          <strong>${r.name}</strong> • <small>${r.email} • ${r.phone}</small><br>
+          <small>${new Date(r.createdAt).toLocaleString()}</small><br>
+          <small>Service: ${r.serviceName}${r.homeVisit==='yes'?' • Home visit':''}</small><br>
+          <small>Date: ${r.date || ''} ${r.time || ''}</small><br>
+          <small>Address: ${r.address || '—'}</small><br>
+          <small>Notes: ${r.notes || '—'}</small><br>
+          <strong>Estimate: $${r.estimate}</strong>
+        </div>
+        <div class="actions">
+          <button class="btn alt" type="button" onclick="emailQuote(${i})">Email</button>
+          <button class="btn alt" type="button" onclick="copyQuote(${i})">Copy</button>
+          <button class="btn" type="button" onclick="deleteReq(${i})">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.deleteReq = function(i){
+    const key='lewsco_requests';
+    let list=[];
+    try{ list = JSON.parse(localStorage.getItem(key)||'[]') }catch(_){}
+    list.splice(i,1);
+    localStorage.setItem(key, JSON.stringify(list));
+    renderRequests();
+  };
+
+  window.emailQuote = function(i){
+    const key='lewsco_requests';
+    let list=[];
+    try{ list = JSON.parse(localStorage.getItem(key)||'[]') }catch(_){}
+    const r=list[i];
+    const subject=encodeURIComponent(`LewSCO.Tech Estimate — ${r.serviceName}`);
+    const body=encodeURIComponent(`Hi ${r.name},
+
+Thanks for your request with LewSCO.Tech. Here is your estimate:
+
+Service: ${r.serviceName}
+Home visit: ${r.homeVisit==='yes'?'Yes (+$25)':'No'}
+Preferred: ${r.date||''} ${r.time||''}
+Estimate: $${r.estimate}
+
+Notes:
+${r.notes||'-'}
+
+We’ll confirm by text/email shortly. — LewSCO.Tech`);
+    window.location.href=`mailto:${r.email}?subject=${subject}&body=${body}`;
+  };
+
+  window.copyQuote = function(i){
+    const key='lewsco_requests';
+    let list=[];
+    try{ list = JSON.parse(localStorage.getItem(key)||'[]') }catch(_){}
+    const r=list[i];
+    const text=`LewSCO.Tech Estimate — ${r.serviceName}
+Name: ${r.name}
+Phone: ${r.phone}
+Email: ${r.email}
+Home visit: ${r.homeVisit}
+Preferred: ${r.date||''} ${r.time||''}
+Address: ${r.address||'-'}
+Notes: ${r.notes||'-'}
+Estimate: $${r.estimate}`;
+    (navigator.clipboard?.writeText(text) || Promise.reject())
+      .then(()=>alert('Copied to clipboard'))
+      .catch(()=>{
+        const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove(); alert('Copied');
+      });
+  };
+
+  function currentServiceName(){
+    const sel=$("#service"); if(!sel) return '';
+    const s = SERVICES.find(x=>x.id===sel.value);
+    return s ? s.name : sel.value;
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    renderServices();
+    goto('home');
+    const year=$("#year"); if(year) year.textContent=new Date().getFullYear();
+    const sel=$("#service"); sel && sel.addEventListener('change', updateEstimate);
+    const hv=$("#homeVisit"); hv && hv.addEventListener('change', updateEstimate);
+    updateEstimate();
+
+    const form=$("#booking-form");
+    form && form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      data.serviceName = currentServiceName();
+      const estEl=$("#estimate"); let estimate=0;
+      if(estEl && estEl.textContent) estimate = Number(estEl.textContent.replace('$',''))||0;
+      data.estimate = estimate;
+      data.createdAt = new Date().toISOString();
+      saveRequest(data);
+      alert('Request saved locally. We will contact you to confirm.');
+      e.target.reset();
+      renderRequests();
+      updateEstimate();
+    });
+
+    const emailBtn=$("#email-btn");
+    emailBtn && emailBtn.addEventListener('click', ()=>{
+      const data = Object.fromEntries(new FormData(document.querySelector('#booking-form')).entries());
+      data.serviceName = currentServiceName();
+      const estEl=$("#estimate"); let estimate=0;
+      if(estEl && estEl.textContent) estimate = Number(estEl.textContent.replace('$',''))||0;
+      const subject=encodeURIComponent(`LewSCO.Tech Estimate — ${data.serviceName}`);
+      const body=encodeURIComponent(`Hi ${data.name||''},
+
+Here is your estimate (not final):
+
+Service: ${data.serviceName}
+Home visit: ${data.homeVisit==='yes'?'Yes (+$25)':'No'}
+Preferred: ${data.date||''} ${data.time||''}
+Estimate: $${estimate}
+
+Notes:
+${data.notes||'-'}
+
+— LewSCO.Tech`);
+      const to = encodeURIComponent(data.email || 'LewSCO.Tech@gmail.com');
+      window.location.href=`mailto:${to}?subject=${subject}&body=${body}`;
+    });
+
+    document.querySelectorAll('nav button').forEach(btn=>{
+      btn.addEventListener('click', ()=>goto(btn.dataset.view));
+    });
+
+    renderRequests();
+  });
+})();
+</script>
+</body>
+</html>
